@@ -13,18 +13,20 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class Test01 {   public WebDriver driver;
+public class Test01 {
+    public WebDriver driver;
 
     @BeforeMethod
-    public void setup(){
+    public void setup() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get("https://the-internet.herokuapp.com/add_remove_elements/");
     }
+
     @Test
-    public void validateTheNumber(){
+    public void validateTheNumberOfElements() {
         WebElement addButton = driver.findElement(By.cssSelector("div > button"));
 
         int numberOfElements = 5;
@@ -33,10 +35,12 @@ public class Test01 {   public WebDriver driver;
         }
         List<WebElement> deleteBoxes = driver.findElements(By.cssSelector("#elements>button"));
         Assert.assertEquals(deleteBoxes.size(), numberOfElements);
+
         for (WebElement deleteBox : deleteBoxes) {
             Assert.assertTrue(deleteBox.isDisplayed());
         }
     }
+
     @AfterMethod
     public void tearDown() throws InterruptedException {
         Thread.sleep(2000);
